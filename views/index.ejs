@@ -1,0 +1,25 @@
+<%- include('partials/header') %>
+
+<a href="/posts"><button class="btn btn-primary mb-3">Create New Post</button></a>
+
+<% if (posts.length > 0) { %>
+  <% posts.forEach(post => { %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h2><%= post.title %></h2>
+        <h5>by <%= post.author || "Anonymous" %></h5>
+        <p><%= post.content %></p>
+        
+        <a href="/edit/<%= post.id %>" class="btn btn-outline-success">Edit</a>
+
+        <form action="/delete/<%= post.id %>" method="POST" style="display:inline-block;">
+          <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure?')">Delete</button>
+        </form>
+      </div>
+    </div>
+  <% }) %>
+<% } else { %>
+  <h3>It's a bit empty here… create a post to get started!</h3>
+<% } %>
+
+<%- include('partials/footer') %>
